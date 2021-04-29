@@ -29,7 +29,7 @@ You can access Authorization and Token endpoint details in
 
 The following scopes are supported: `openid`, `profile`.
 
-If you use the `profile` scope, you get access to the `picture`, `given_name`, `website` and `nickname` claims too.
+If you use the `profile` scope, you get access to the `steam_id`, `picture`, `given_name`, `website`, `loc_countycode`, `profile_url` and `nickname` claims too.
 
 ## HTTPS Support
 

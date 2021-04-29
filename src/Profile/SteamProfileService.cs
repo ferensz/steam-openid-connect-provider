@@ -9,6 +9,7 @@ using IdentityServer4.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using SteamOpenIdConnectProvider.NameParser;
 using SteamOpenIdConnectProvider.Profile.Models;
 
 namespace SteamOpenIdConnectProvider.Profile
@@ -61,14 +62,20 @@ namespace SteamOpenIdConnectProvider.Profile
 
             if (player != null)
             {
+                if (!string.IsNullOrEmpty(player.RealName))
+                {
+                    var parsedName = NameParser.NameParser.Parse(player.RealName);
+                    AddClaim(claims, "given_name", parsedName.FirstName);
+                    AddClaim(claims, "family_name", parsedName.LastName);
+                }
+
+                AddClaim(claims, "name", player.RealName);
                 AddClaim(claims, "steam_id", player.SteamId.ToString());
                 AddClaim(claims, "picture", player.AvatarFull);
                 AddClaim(claims, "nickname", player.PersonaName);
                 AddClaim(claims, "preferred_username", player.PersonaName);
-                AddClaim(claims, "given_name", player.RealName);
                 AddClaim(claims, "website", player.ProfileUrl);
-                AddClaim(claims, "loc_countrycode", player.LocCountryCode);
-                AddClaim(claims, "profile_url", player.ProfileUrl);
+                AddClaim(claims, "locale", player.LocCountryCode);
             }
 
             context.IssuedClaims = claims;

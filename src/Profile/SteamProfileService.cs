@@ -64,6 +64,7 @@ namespace SteamOpenIdConnectProvider.Profile
                 AddClaim(claims, "steam_id", player.SteamId.ToString());
                 AddClaim(claims, "picture", player.AvatarFull);
                 AddClaim(claims, "nickname", player.PersonaName);
+                AddClaim(claims, "preferred_username", player.PersonaName);
                 AddClaim(claims, "given_name", player.RealName);
                 AddClaim(claims, "website", player.ProfileUrl);
                 AddClaim(claims, "loc_countrycode", player.LocCountryCode);
